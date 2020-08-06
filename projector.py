@@ -195,7 +195,7 @@ if __name__ == "__main__":
 
     img_ar = make_image(img_gen)
 
-    result_file = {}
+    result_file = {'noises': noises, 'latent': latent_path[-1]}
     for i, input_name in enumerate(args.files):
         noise_single = []
         for noise in noises:
@@ -209,6 +209,6 @@ if __name__ == "__main__":
 
         img_name = os.path.splitext(os.path.basename(input_name))[0] + "-project.png"
         pil_img = Image.fromarray(img_ar[i])
-        pil_img.save(img_name)
+        pil_img.save('projections/'+img_name)
 
     torch.save(result_file, filename)
