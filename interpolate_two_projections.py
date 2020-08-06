@@ -31,7 +31,6 @@ def interpolate(args, generator, l1, l2, n1, n2):
         latent_interp = np.array([slerp(v,slice_l1.cpu().numpy(),slice_l2.cpu().numpy()) for v in interp_vals], dtype=np.float32)
         for i in range(len(latent_interp)):
             input = torch.tensor(latent_interp[i])
-            print(input.size())
             input = input.view(1,512)
             input = input.to('cuda')
             image, _ = generator([input], input_is_latent=True, noise = n1)
