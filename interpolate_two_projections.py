@@ -25,22 +25,21 @@ def interpolate(args, generator, l1, l2, n1, n2):
     with torch.no_grad():
         generator.eval()
         slice_l1 = l1[0,:]
-        print(slice_l1.cpu().numpy())
         slice_l2 = l2[0,:]
         interp_vals = np.linspace(1./args.n_frames, 1, num=args.n_frames)
         latent_interp = np.array([slerp(v,slice_l1.cpu().numpy(),slice_l2.cpu().numpy()) for v in interp_vals], dtype=np.float32)
-        for i in range(len(latent_interp)):
+        for i in tqdm(range(len(latent_interp))):
             input = torch.tensor(latent_interp[i])
             input = input.view(1,512)
             input = input.to('cuda')
-            image, _ = generator([input], input_is_latent=True, noise = n1)
+            image, _ = generator([input], input_is_latent=True, noise=n1)
             
-            if not os.path.exists('sample'):
-                os.makedirs('sample')
+            if not os.path.exists('interpolate_two_points'):
+                os.makedirs('interpolate_two_points')
 
             utils.save_image(
                 image,
-                f'sample/{str(i).zfill(6)}.png',
+                f'interpolate_two_points/{str(i).zfill(6)}.png',
                 nrow=1,
                 normalize=True,
                 range=(-1, 1),

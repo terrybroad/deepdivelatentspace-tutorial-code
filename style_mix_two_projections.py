@@ -15,7 +15,7 @@ def mix_styles(args, generator, l1, l2, n1, n2):
         slice_l2 = l2[0,:].unsqueeze(0)
         
         for i in range(16):
-            image, _ = generator([slice_l1,slice_l2], input_is_latent=True, inject_index=i) #, truncation=0.5, truncation_latent=4096, noise = n1)
+            image, _ = generator([slice_l1,slice_l2], input_is_latent=True, inject_index=i)
             if not os.path.exists('sample'):
                 os.makedirs('sample')
 
