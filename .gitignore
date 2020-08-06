@@ -136,3 +136,7 @@ dmypy.json
 
 # Pytorch files
 *.pt
+
+# Projections 
+!projections/trump.pt
+!projections/obama.pt
