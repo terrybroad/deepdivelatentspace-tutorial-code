@@ -15,7 +15,7 @@ def mix_styles(args, generator, l1, l2):
 
         for i in tqdm(range(1, generator.n_latent-1)):
             image, _ = generator([slice_l1,slice_l2],
-                input_is_latent=False,  # IMPORTANT CHANGE
+                input_is_latent=False,
                 inject_index=i)
 
             save_dir = Path(args.save_dir)
@@ -26,8 +26,7 @@ def mix_styles(args, generator, l1, l2):
                 save_dir/f'style_mix_{str(i).zfill(2)}.png',
                 nrow=1,
                 normalize=True,
-                range=(-1, 1),
-            )
+                range=(-1, 1))
 
 if __name__ == '__main__':
     device = 'cuda'
