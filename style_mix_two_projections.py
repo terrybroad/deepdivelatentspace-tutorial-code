@@ -15,7 +15,7 @@ def mix_styles(args, generator, l1, l2):
 
         for i in tqdm(range(1, generator.n_latent-1)):
             image, _ = generator([slice_l1,slice_l2],
-                input_is_latent=False,
+                input_is_latent=args.w_space,
                 inject_index=i)
 
             save_dir = Path(args.save_dir)
@@ -35,8 +35,11 @@ if __name__ == '__main__':
     parser.add_argument('--size', type=int, default=1024)
     parser.add_argument('--channel_multiplier', type=int, default=2)
     parser.add_argument('--ckpt', type=str, default="models/stylegan2-ffhq-config-f.pt")
-    parser.add_argument('--latent1', type=str, default="")
-    parser.add_argument('--latent2', type=str, default="")
+    parser.add_argument('--latent1', type=str)
+    parser.add_argument('--latent2', type=str)
+    parser.add_argument('--w_space', action='store_true'
+        help="Indicate given latents are from w space. "\
+             "Otherwise latents are expected to be from z space")
     parser.add_argument('--save_dir', type=str, default="sample/")
 
     args = parser.parse_args()
