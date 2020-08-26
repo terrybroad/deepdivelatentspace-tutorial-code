@@ -76,7 +76,7 @@ if __name__ == "__main__":
     device = "cuda"
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ckpt", type=str, required=True)
+    parser.add_argument("--ckpt", type=str, default='ckpt/stylegan2-ffhq.pt')
     parser.add_argument("--size", type=int, default=1024)
     parser.add_argument("--lr_rampup", type=float, default=0.05)
     parser.add_argument("--lr_rampdown", type=float, default=0.25)
@@ -207,7 +207,7 @@ if __name__ == "__main__":
             "noise": noise_single,
         }
 
-        img_name = os.path.splitext(os.path.basename(input_name))[0] + "-project.png"
+        img_name = os.path.splitext('projections/'+os.path.basename(input_name))[0] + ".png"
         pil_img = Image.fromarray(img_ar[i])
         pil_img.save('projections/'+img_name)
 
