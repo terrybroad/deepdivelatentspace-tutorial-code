@@ -207,8 +207,8 @@ if __name__ == "__main__":
             "noise": noise_single,
         }
 
-        img_name = os.path.splitext('projections/'+os.path.basename(input_name))[0] + ".png"
+        img_name = os.path.splitext(os.path.basename(input_name))[0] + ".png"
         pil_img = Image.fromarray(img_ar[i])
-        pil_img.save('projections/'+img_name)
+        pil_img.save("projections/"+img_name)
 
-    torch.save(result_file, filename)
+    torch.save(result_file, "projections/"+filename)
