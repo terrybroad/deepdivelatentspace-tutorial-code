@@ -16,7 +16,7 @@ def interpolate_loop_w(args, generator, latent, noise):
         generator.eval()
         slice_latent = latent[0,:]
         slerp_loop = get_slerp_loop(args.nb_latent, args.nb_interp, slice_latent.cpu().numpy())
-        for i in range(len(slerp_loop)):
+        for i in tqdm(range(len(slerp_loop))):
             input = torch.tensor(slerp_loop[i])
             input = input.view(1,512)
             input = input.to('cuda')

@@ -17,18 +17,18 @@ def interpolate_loop_z(args, generator):
         generator.eval()
         random_latent = np.random.randn(512)
         slerp_loop = get_slerp_loop(args.nb_latent, args.nb_interp, random_latent)
-        for i in range(len(slerp_loop)):
+        for i in tqdm(range(len(slerp_loop))):
             input = torch.tensor(slerp_loop[i])
             input = input.view(1,512)
             input = input.to('cuda')
             image, _ = generator([input], truncation=args.truncation, truncation_latent=mean_latent)
             
-            if not os.path.exists('interpolation_loop_w'):
-                os.makedirs('interpolation_loop_w')
+            if not os.path.exists('interpolation_loop_z'):
+                os.makedirs('interpolation_loop_z')
 
             utils.save_image(
                 image,
-                f'interpolation_loop_w/{str(i).zfill(6)}.png',
+                f'interpolation_loop_z/{str(i).zfill(6)}.png',
                 nrow=1,
                 normalize=True,
                 range=(-1, 1),
