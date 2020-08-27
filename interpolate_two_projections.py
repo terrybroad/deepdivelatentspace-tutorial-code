@@ -34,12 +34,12 @@ def interpolate(args, generator, l1, l2, n1, n2):
             input = input.to('cuda')
             image, _ = generator([input], input_is_latent=True, noise=n1)
             
-            if not os.path.exists('interpolate_two_points'):
-                os.makedirs('interpolate_two_points')
+            if not os.path.exists('interpolate_two_projections'):
+                os.makedirs('interpolate_two_projections')
 
             utils.save_image(
                 image,
-                f'interpolate_two_points/{str(i).zfill(6)}.png',
+                f'interpolate_two_projections/{str(i).zfill(6)}.png',
                 nrow=1,
                 normalize=True,
                 range=(-1, 1),
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     parser.add_argument('--size', type=int, default=1024)
     parser.add_argument('--channel_multiplier', type=int, default=2)
     parser.add_argument('--n_frames', type=int, default=100)
-    parser.add_argument('--ckpt', type=str, default="models/stylegan2-ffhq-config-f.pt")
+    parser.add_argument('--ckpt', type=str, default="ckpt/stylegan2-ffhq.pt")
     parser.add_argument('--latent1', type=str, default="") 
     parser.add_argument('--latent2', type=str, default="") 
 
