@@ -22,12 +22,12 @@ def interpolate_loop_w(args, generator, latent, noise):
             input = input.to('cuda')
             image, _ = generator([input], input_is_latent=True, noise = noise, truncation=args.truncation, truncation_latent=mean_latent)
             
-            if not os.path.exists('circular_interpolate'):
-                os.makedirs('circular_interpolate')
+            if not os.path.exists('interpolation_loop_w'):
+                os.makedirs('interpolation_loop_w')
 
             utils.save_image(
                 image,
-                f'circular_interpolate/{str(i).zfill(6)}.png',
+                f'interpolation_loop_w/{str(i).zfill(6)}.png',
                 nrow=1,
                 normalize=True,
                 range=(-1, 1),
