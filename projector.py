@@ -6,6 +6,7 @@ import torch
 from torch import optim
 from torch.nn import functional as F
 from torchvision import transforms
+from torchvision import utils
 from PIL import Image
 from tqdm import tqdm
 
@@ -148,6 +149,7 @@ if __name__ == "__main__":
     pbar = tqdm(range(args.step))
     latent_path = []
 
+    im_index = 0
     for i in pbar:
         t = i / args.step
         lr = get_lr(t, args.lr)
@@ -156,6 +158,19 @@ if __name__ == "__main__":
         latent_n = latent_noise(latent_in, noise_strength.item())
 
         img_gen, _ = g_ema([latent_n], input_is_latent=True, noise=noises)
+
+        if i % 5 == True:
+            if not os.path.exists('projection_animation'):
+                os.makedirs('projection_animation')
+            utils.save_image(
+                img_gen,
+                f'projection_animation/{str(im_index).zfill(6)}.png',
+                nrow=8,
+                normalize=True,
+                range=(-1, 1)
+            )
+            im_index += 1
+            
 
         batch, channel, height, width = img_gen.shape
 
