@@ -2,7 +2,7 @@ import os
 import sys
 import bz2
 import argparse
-from keras.utils import get_file
+from tensorflow import keras
 from ffhq_dataset.face_alignment import image_align
 from ffhq_dataset.landmarks_detector import LandmarksDetector
 import multiprocessing
@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     args, other_args = parser.parse_known_args()
 
-    landmarks_model_path = unpack_bz2(get_file('shape_predictor_68_face_landmarks.dat.bz2',
+    landmarks_model_path = unpack_bz2(keras.utils.get_file('shape_predictor_68_face_landmarks.dat.bz2',
                                                LANDMARKS_MODEL_URL, cache_subdir='temp'))
     RAW_IMAGES_DIR = args.raw_dir
     ALIGNED_IMAGES_DIR = args.aligned_dir
